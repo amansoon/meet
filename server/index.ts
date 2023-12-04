@@ -4,10 +4,10 @@ import peerRoute from './routes/peer'
 
 const app: Application = express()
 
-const port: number = 3000
+const port: number = 8000
 
-app.use(cors({origin: true}));
 app.use(express.json());
+app.use(cors({origin: true}));
 
 app.use('/api/peer', peerRoute)
 

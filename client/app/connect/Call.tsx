@@ -4,7 +4,7 @@ import { Peer } from "peerjs";
 import { v4 as uuid } from 'uuid';
 import axios from 'axios'
 
-const baseUrl = "http://localhost:8000"
+const baseUrl = "https://turbo-tribble-44v5rxggpvqf5jjx-8000.app.github.dev/"
 
 async function createPeer(peerId : string) {
     const res = await axios.post(`${baseUrl}/api/peer`, {

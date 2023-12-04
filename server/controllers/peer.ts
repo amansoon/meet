@@ -7,11 +7,13 @@ class Peer {
     static createPeer(req: Request, res: Response) {
         const {peerId}  = req.body;
 
+        console.log("body = ", req.body)
+
         if(!peerId) {
-            res.json({status: "FAILED", message: "Peer Id is required!"})
+            return res.json({status: "FAILED", message: "Peer Id is required!"})
         }
         
-        console.log(peerId)
+        console.log("peerId = ", peerId)
 
         peers.push(peerId);
         res.json({data :  peerId})
@@ -27,14 +29,23 @@ class Peer {
     }
 
     static getRandomPeer(req: Request, res: Response) {
-        const id = peers[Math.floor(Math.random() * peers.length)];
+        const anotherPeerId = findRandomPeerId(req.params.id);
 
-        if(id) {
-            res.json({status: "SUCCESS", data : {peerId : id}, message: "got random peer id"});
+        if(anotherPeerId) {
+            res.json({status: "SUCCESS", data : {anotherPeerId}, message: "got random peer id"});
         } else {
             res.json({status: "FAILED", data : null, message: "No one is online!"});
         }
     }
+}
+
+
+function findRandomPeerId(peerId : string) {
+    let anotherPeerId = peers[Math.floor(Math.random() * peers.length)];
+    if(anotherPeerId === peerId) {
+        anotherPeerId = findRandomPeerId(peerId)
+    }
+    return anotherPeerId;
 }
 
 export default Peer;
